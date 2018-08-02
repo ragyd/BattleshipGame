@@ -2,7 +2,7 @@
   <div class="board-view">
     <h3>Board of {{ValuesConfig.cols}} x {{ValuesConfig.rows}}</h3>
     <div class="board-table">
-      <table id="board" border="1"> 
+      <table id="board"> 
       </table>
     </div>
   </div>
@@ -55,10 +55,6 @@ export default {
     display: inline-block;
   }
 
-  .center {
-    text-align: center;
-  }
-
   .board-table {
     width: 100%;
     height: 100%;
@@ -66,13 +62,14 @@ export default {
 
   .board-table table {
     width: 100%;
-    height: 80%;
+    height: 80%;    
+    border-collapse: collapse;
+  }
+  
+  .board-table table, th, td {
+    border: 1px solid black;
   }
 
-  .center table {
-    margin: 0 auto;
-    text-align: left;
-  }
   @media screen and (max-width: 500px) {
     .board-view {
       width:100%;

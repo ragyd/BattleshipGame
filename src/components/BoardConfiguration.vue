@@ -65,6 +65,7 @@ export default {
     border: 1px solid black;
     border-radius: 3px;
   }
+
   .my-text-disabled {
     border: 1px solid grey;
     background: #ddd;

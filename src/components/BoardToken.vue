@@ -1,5 +1,6 @@
 <template>
   <div class="board-token">
+    <h3>Board Configuration</h3>
     <board-configuration/>
     <div class="div-group">
       <input type="input" class="my-text my-text-disabled" id="key" v-model="TokenConfig" disabled>
@@ -40,10 +41,10 @@ export default {
     border: 1px solid grey;
     background: #ddd;
     font-style: italic;
+    text-align: center;
   }
 
   .board-token {
-    margin-top: 60px;
     width: 35%;
     float: right;
     display: inline-block;
