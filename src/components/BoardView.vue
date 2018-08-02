@@ -1,7 +1,6 @@
 <template>
   <div class="board-view">
-    <h3> Cols: {{createBoard.cols}}</h3>
-    {{createBoard.rows}}
+    <h3>{{createBoard.cols}}</h3>
     <table id="board" border="1"> 
     </table>
   </div>
@@ -17,12 +16,8 @@ export default {
     }
   },
   mounted() {
-    BoardBus.$on('create-board', (cols, rows) => {
-      let data = {};
-      data.cols = cols;
-      data.rows = rows;
-      this.createBoard = data;
-      console.log(data);
+    BoardBus.$on('create-board', (value) => {
+      this.createBoard = value;
     })
   }
 };
@@ -38,4 +33,14 @@ export default {
   .board-td {
     padding: 10px;
   }
+
+  @media screen and (max-width: 500px) {
+    .board-view {
+      width:100%;
+    }
+    
+    .board-config {
+      width:100%;
+    }
+  }  
 </style>

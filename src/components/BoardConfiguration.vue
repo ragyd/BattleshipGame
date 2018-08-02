@@ -11,6 +11,9 @@
     <div class="div-group">
       <input type="button" id="button" class="my-button" name="button" value="Create Board" @click="createTable()">
     </div>
+    <div class="div-group">
+      <input type="input" class="my-text" id="key" disabled>
+    </div>    
   </div>
 </template>
 
@@ -23,24 +26,29 @@ export default {
     {
       let cols = document.getElementById("cols").value;
       let rows = document.getElementById("rows").value;
+
+      let config = {cols, rows};
+
+      BoardBus.$emit('create-table', config);
+
       let table = document.getElementById('board');
 
       while (table.hasChildNodes()) {
         table.removeChild(table.lastChild);
       }
 
-      for(var r = 0; r < rows;r++)
+      for(var rowIndex = 0; rowIndex < rows; rowIndex++)
       {
-       var x = table.insertRow(r);
-       for(var c = 0; c < cols;c++)  
+       var x = table.insertRow(rowIndex);
+       for(var colIndex = 0; colIndex < cols; colIndex++)  
         {
-          var y=  x.insertCell(c);
+          var y =  x.insertCell(colIndex);
           y.innerHTML="X";
           y.classList.add("board-td");
         }
       }
-      BoardBus.$emit('create-table', cols, rows);
-      alert(cols + "-" + rows);
+
+      document.getElementById("key").value = "HiThisIsAKey" + cols + rows;
     }
   }
 };
@@ -72,7 +80,7 @@ export default {
 
   .my-label {
     float: left;
-    margin-left: 20px;
+    margin-left: 10px;
     text-align: left;
     width: 100%;
     padding: 10px 10px 10px 0px;
@@ -88,15 +96,5 @@ export default {
     border: 1px solid #ccc;
     float: right;
     display: inline-block;
-  }
-
-  @media screen and (max-width: 500px) {
-    .board-view {
-      width:100%;
-    }
-    
-    .board-config {
-      width:100%;
-    }
   }
 </style>
