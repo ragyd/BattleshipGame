@@ -1,7 +1,7 @@
 <template>
   <div class="board-view">
     <h3>Board of {{ValuesConfig.cols}} x {{ValuesConfig.rows}}</h3>
-    <div class="center">
+    <div class="board-table">
       <table id="board" border="1"> 
       </table>
     </div>
@@ -55,13 +55,20 @@ export default {
     display: inline-block;
   }
 
-  .board-td {
-    padding: 15px;
-    box-sizing: border-box;
-  }
   .center {
     text-align: center;
   }
+
+  .board-table {
+    width: 100%;
+    height: 100%;
+  }
+
+  .board-table table {
+    width: 100%;
+    height: 80%;
+  }
+
   .center table {
     margin: 0 auto;
     text-align: left;

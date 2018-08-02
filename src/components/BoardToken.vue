@@ -43,6 +43,7 @@ export default {
   }
 
   .board-token {
+    margin-top: 60px;
     width: 35%;
     float: right;
     display: inline-block;
