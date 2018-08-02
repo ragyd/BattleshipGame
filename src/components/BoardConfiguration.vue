@@ -9,11 +9,8 @@
       <input type="number" id="rows" name="rows" class="my-text" value="1" min="1" max="10">
     </div>
     <div class="div-group">
-      <input type="button" id="button" class="my-button" name="button" value="Create Board" @click="createTable()">
-    </div>
-    <div class="div-group">
-      <input type="input" class="my-text" id="key" disabled>
-    </div>    
+      <input type="button" id="button" class="my-button" name="button" value="Create Board" @click="createBoard()">
+    </div> 
   </div>
 </template>
 
@@ -22,60 +19,46 @@ import {BoardBus} from '@/services/board-bus';
 export default {
   name: 'board-config',
   methods: {
-    createTable()
-    {
+    createBoard() {
       let cols = document.getElementById("cols").value;
       let rows = document.getElementById("rows").value;
 
-      let config = {cols, rows};
+      let config = {};
+      config.cols = cols;
+      config.rows = rows;
+      
+      let token = this.randomKey();
 
-      BoardBus.$emit('create-table', config);
-
-      let table = document.getElementById('board');
-
-      while (table.hasChildNodes()) {
-        table.removeChild(table.lastChild);
-      }
-
-      for(var rowIndex = 0; rowIndex < rows; rowIndex++)
-      {
-       var x = table.insertRow(rowIndex);
-       for(var colIndex = 0; colIndex < cols; colIndex++)  
-        {
-          var y =  x.insertCell(colIndex);
-          y.innerHTML="X";
-          y.classList.add("board-td");
-        }
-      }
-
-      document.getElementById("key").value = "HiThisIsAKey" + cols + rows;
+      BoardBus.$emit('values-config', config);
+      BoardBus.$emit('token-config', token);
+    },
+    randomKey() {
+      return Math.random().toString(36).substr(2);
     }
   }
 };
 </script>
 <style>
   .my-button{
-    text-decoration: none;
     text-align: center;
-    padding: 10px;
-    background: #4f9bd1;
-    color: white;
     font-weight: 600;
-    border: 2px solid black;
-    border-radius: 5px;  
+    padding: 10px; 
   }
 
-  .my-button:hover, .my-button-blue:hover, .my-button-red:hover {
-    box-shadow: 0 0 1em black;
+  .my-button:hover {
     cursor: pointer;
-    color: black;
   }
 
   .my-text {
     width: 85%;
     padding: 10px;
-    border: 1px solid black;  
+    border: 1px solid black;
     border-radius: 3px;
+  }
+  .my-text-disabled {
+    border: 1px solid grey;
+    background: #ddd;
+    font-style: italic;
   }
 
   .my-label {
@@ -92,9 +75,9 @@ export default {
   }
 
   .board-config {
-    width: 45%;
     border: 1px solid #ccc;
-    float: right;
+    flex: right;
     display: inline-block;
+    margin-bottom: 20px;
   }
 </style>
