@@ -1,8 +1,11 @@
 <template>
   <div class="board-view">
-    <h3>Board of {{ValuesConfig.cols}} x {{ValuesConfig.rows}}</h3>
+    <h3>Board of {{cols}} x {{rows}}</h3>
     <div class="board-table">
-      <table id="board"> 
+      <table id="board">
+        <tr v-for="row in rows">
+          <td v-for="col in cols" :key="col*row"></td>
+        </tr>      
       </table>
     </div>
   </div>
@@ -14,36 +17,15 @@ export default {
   name: 'board-bus',
   data() {
     return {
-      ValuesConfig: ''
-    }
+      cols: 10,
+      rows: 10,
+    };
   },
   mounted() {
     BoardBus.$on('values-config', (value) => {
-      this.ValuesConfig = value;
-      this.drawBoard(value.cols, value.rows)
+      this.cols = value.cols;
+      this.rows = value.rows;
     })
-  },
-  methods: {
-    drawBoard(cols, rows) {
-      let table = document.getElementById('board');
-      this.clearBoard(table);
-
-      for(var rowIndex = 0; rowIndex < rows; rowIndex++)
-      {
-       var x = table.insertRow(rowIndex);
-       for(var colIndex = 0; colIndex < cols; colIndex++)  
-        {
-          var y =  x.insertCell(colIndex);
-          //y.innerHTML="X";
-          y.classList.add("board-td");
-        }
-      }
-    },
-    clearBoard(table) {
-      while (table.hasChildNodes()) {
-        table.removeChild(table.lastChild);
-      }
-    }
   }
 };
 </script>

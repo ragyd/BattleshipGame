@@ -3,7 +3,7 @@
     <h3>Board Configuration</h3>
     <board-configuration/>
     <div class="div-group">
-      <input type="input" class="my-text my-text-disabled" id="key" v-model="TokenConfig" disabled>
+      <input type="input" class="my-text my-text-disabled" id="key" v-model="token" disabled>
       <div class="div-group">
         <input type="button" id="button" class="my-button" name="button" value="Join this Game" @click="joinGame()">
       </div>
@@ -21,17 +21,17 @@ export default {
   },
   data() {
     return {
-      TokenConfig: ''
+      token: ''
     }
   },
   mounted() {
     BoardBus.$on('token-config', (data) => {
-      this.TokenConfig = data;
+      this.token = data;
     })
   },  
   methods: {
     joinGame() {
-      alert('Join with this URL: ' + this.TokenConfig);
+      alert('Join with this URL: ' + this.token);
     }
   }
 };
