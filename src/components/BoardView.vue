@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {BoardBus} from '@/services/board-bus';
+import { BoardBus } from '@/services/BoardBus';
 export default {
   name: 'board-bus',
   data() {

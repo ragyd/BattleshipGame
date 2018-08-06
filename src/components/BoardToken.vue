@@ -3,17 +3,18 @@
     <h3>Board Configuration</h3>
     <board-configuration/>
     <div class="div-group">
-      <input type="input" class="my-text my-text-disabled" id="key" v-model="token" disabled>
+      <input type="input" class="my-text my-text-disabled" id="key" v-model="tokenLink" disabled>
       <div class="div-group">
-        <input type="button" id="button" class="my-button" name="button" value="Join this Game" @click="joinGame()">
+        <input type="button" id="button" class="my-button" name="button" value="Join this Game" @click="joinGame(tokenLink)">
       </div>
     </div>    
   </div>
 </template>
 
 <script>
-import {BoardBus} from '@/services/board-bus';
+import { BoardBus } from '@/services/BoardBus';
 import BoardConfiguration from '@/components/BoardConfiguration.vue';
+import JoinGame from '@/services/JoinGame';
 export default {
   name: 'board-token',
   components: {
@@ -21,17 +22,24 @@ export default {
   },
   data() {
     return {
-      token: ''
+      tokenLink: ''
     }
   },
-  mounted() {
-    BoardBus.$on('token-config', (data) => {
-      this.token = data;
+  mounted() { 
+    BoardBus.$on('token-link', (data) => {
+      this.tokenLink = data.session;
     })
   },  
   methods: {
-    joinGame() {
-      alert('Join with this URL: ' + this.token);
+    joinGame(tokenLink) {
+      JoinGame.join(tokenLink)
+        .then((response) => {
+          alert('Join with this URL:\n' + this.tokenLink);
+          response.data;
+        })
+        .catch((error) => {
+          alert('ERROR: ' + error);
+        });
     }
   }
 };
