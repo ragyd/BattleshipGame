@@ -34,6 +34,7 @@ export default {
   },  
   methods: {
     createBoard() {
+          //localStorage.clear()
       this.messageCols = this.validateValue(this.cols);
       this.messageRows = this.validateValue(this.rows);
       if(this.messageCols === null && this.messageRows === null)
@@ -42,6 +43,7 @@ export default {
           cols: this.cols,
           rows: this.rows,
         });
+//localStorage.setItem('Account', JSON.stringify(response));        
         return true;
       }
         return false;
@@ -129,4 +131,25 @@ export default {
     display: inline-block;
     margin-bottom: 20px;
   }
+
+  #drag-elements {
+  display: block;
+  background-color: #dfdfdf;
+  border-radius: 5px;
+  min-height: 50px;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+#drop-target {
+  border: 2px dashed #D9D9D9;
+  border-radius: 5px;
+  min-height: 200px;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 2em;
+  display: block;
+  text-align: center;
+}
+
 </style>

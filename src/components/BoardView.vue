@@ -3,8 +3,8 @@
     <h3>Board of {{cols}} x {{rows}}</h3>
     <div class="board-table">
       <table id="board">
-        <tr v-for="row in rows">
-          <td v-for="col in cols" :key="col*row"></td>
+        <tr v-for="row in rows" v-bind:key="row">
+          <td v-for="col in cols" v-bind:key="col" :id="(row + 1)+'-'+(col + 1)"></td>
         </tr>      
       </table>
     </div>
