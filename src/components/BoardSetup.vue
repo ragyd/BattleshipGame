@@ -2,8 +2,8 @@
 	<div class="board-setup">
 		<div class="board-container">
 			<table id="board">
-				<tr v-for="(row, rowIndex) in rows">
-					<td v-for="(col, colIndex) in cols" :id="(rowIndex + 1)+'-'+(colIndex + 1)">
+				<tr v-for="(row, rowIndex) in rows" v-bind:key="row">
+					<td v-for="(col, colIndex) in cols" :id="(rowIndex + 1)+'-'+(colIndex + 1)" v-bind:key="col">
 						0
 					</td>
 				</tr>
@@ -32,22 +32,22 @@ export default {
 		}
 	},
 	mounted() {
-	  this.getBoard()
-	  	.then(board => {
-	  		this.cols = board.cols
-	  		this.rows = board.rows
-	  	})
-	  	.then(() => {
-	  		for(let i = 1; i <= this.cols; i++) {
-	  			for(let j = 1; j <= this.cols; j++) {
+		this.getBoard()
+			.then(board => {
+				this.cols = board.cols
+				this.rows = board.rows
+			})
+			.then(() => {
+				for(let i = 1; i <= this.cols; i++) {
+					for(let j = 1; j <= this.cols; j++) {
 						dragula([
-			        document.getElementById('ship-container'),
-			        document.getElementById(i+'-'+j)], {
-				        copy: true
-				   	})
-	  			}
-	  		}
-	  	})
+							document.getElementById('ship-container'),
+							document.getElementById(i+'-'+j)], {
+							copy: true
+						})
+					}
+				}
+			})
 	},
 	methods: {
 		getBoard() {
