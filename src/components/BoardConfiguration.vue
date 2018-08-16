@@ -14,15 +14,33 @@
       <input type="button" id="button" class="my-button" name="button" value="Create Game" v-on:click="createGame(cols, rows)">
     </div>
     <label class="message-game">{{messageGame}}</label>
+<div class="container">
+  <h1>Drag & Drop</h1>
+  <div class="left">
+    <div id="drag-elements">
+      <div>Element 1</div>
+      <div>Element 2</div>
+      <div>Element 3</div>
+    </div>
+
+    <div id="drop-target">
+
+    </div>
+  </div>
+ </div>    
   </div>
 </template>
 
 <script>
 import { BoardBus } from '@/services/BoardBus';
 import CreateGame from '@/services/CreateGame';
+const dragula = require('dragula');
+
 export default {
   name: 'board-config',
-  props: ['wrongRowsNumber', 'wrongColumnsNumber'],
+  mounted: function(){
+    this.drag()
+  },
   data() {
     return {
       rows: 10,
@@ -33,6 +51,14 @@ export default {
     }
   },  
   methods: {
+    drag() {
+      alert("hola")
+      dragula([
+        document.getElementById('drag-elements'),
+        document.getElementById('drop-target')], {
+        copy: true
+      });
+    },
     createBoard() {
           //localStorage.clear()
       this.messageCols = this.validateValue(this.cols);
