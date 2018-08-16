@@ -34,7 +34,6 @@ export default {
   },  
   methods: {
     createBoard() {
-          //localStorage.clear()
       this.messageCols = this.validateValue(this.cols);
       this.messageRows = this.validateValue(this.rows);
       if(this.messageCols === null && this.messageRows === null)
@@ -43,7 +42,6 @@ export default {
           cols: this.cols,
           rows: this.rows,
         });
-//localStorage.setItem('Account', JSON.stringify(response));        
         return true;
       }
         return false;
