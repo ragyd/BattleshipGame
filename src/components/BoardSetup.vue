@@ -23,7 +23,6 @@
 <script>
 //const dragula = require('dragula');
 import * as dragula from 'dragula';
-
 export default {
   name: 'BoardSetup',
   data() {
@@ -53,7 +52,6 @@ export default {
   methods: {
     getBoard() {
       const boardGame = JSON.parse(localStorage.getItem('Board'));
-        //const game = JSON.parse(localStorage.getItem('Game'));
       return Promise.resolve({
         rows: boardGame.rows,
         cols: boardGame.cols
