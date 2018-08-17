@@ -51,6 +51,9 @@ export default {
       if(this.createBoard()) {
         CreateGame.create({cols, rows})
         .then((response) => {
+          localStorage.clear()
+          localStorage.setItem('Game', JSON.stringify(response.data));
+          localStorage.setItem('Board', JSON.stringify({ cols, rows }));
           BoardBus.$emit('token-link', response.data);
           this.messageGame = "The game was created."
         })
@@ -58,6 +61,7 @@ export default {
           this.messageGame = error;
         });
       } else {
+          localStorage.clear()      
         this.messageGame = "The game couldn't be created because the values of the board are invalid."
       }
     },
@@ -86,12 +90,6 @@ export default {
     padding: 10px;
     border: 1px solid black;
     border-radius: 3px;
-  }
-
-  .my-text-disabled {
-    border: 1px solid grey;
-    background: #ddd;
-    font-style: italic;
   }
 
   .my-label {

@@ -21,7 +21,8 @@
   </div>
 </template>
 <script>
-const dragula = require('dragula');
+//const dragula = require('dragula');
+import * as dragula from 'dragula';
 
 export default {
   name: 'BoardSetup',
@@ -34,8 +35,11 @@ export default {
   mounted() {
     this.getBoard()
       .then(board => {
-        this.cols = board.cols
-        this.rows = board.rows
+        const boardGame = JSON.parse(localStorage.getItem('Board'));
+        const game = JSON.parse(localStorage.getItem('Game'));
+        const playerId = game['PlayerId1'];
+        this.cols = boardGame.cols
+        this.rows = boardGame.rows
       })
       .then(() => {
         for(let i = 1; i <= this.cols; i++) {

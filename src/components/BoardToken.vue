@@ -3,10 +3,8 @@
     <h3>Board Configuration</h3>
     <board-configuration/>
     <div class="div-group">
-      <input type="input" class="my-text my-text-disabled" id="key" v-model="tokenLink" disabled>
-      <div class="div-group">
-        <input type="button" id="button" class="my-button" name="button" value="Join this Game" @click="joinGame(tokenLink)">
-      </div>
+      <label for="rows" class="my-label center">Invite to your friend with the next link:</label>
+      <textarea name="" :value="tokenLink" type="input" id="key" class="my-text-disabled"></textarea>
     </div>    
   </div>
 </template>
@@ -46,16 +44,23 @@ export default {
 </script>
 <style>
   .my-text-disabled {
-    border: 1px solid grey;
-    background: #ddd;
+    background: #efefef;
     font-style: italic;
-    text-align: center;
+    border-radius: 3px;
+    font-size: 11px;
+    height: 40px;
+    width: 100%;
   }
 
   .board-token {
     width: 35%;
     float: right;
     display: inline-block;
+  }
+
+  .center {
+    text-align: center;
+    font-size: 14px;
   }
 
   * {
