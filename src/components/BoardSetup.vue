@@ -39,7 +39,7 @@ export default {
       })
       .then(() => {
         for(let i = 1; i <= this.cols; i++) {
-          for(let j = 1; j <= this.cols; j++) {
+          for(let j = 1; j <= this.rows; j++) {
             dragula([
               document.getElementById('ship-container'),
               document.getElementById(i+'-'+j)], {
