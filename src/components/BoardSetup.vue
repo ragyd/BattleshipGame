@@ -2,8 +2,8 @@
   <div class="board-setup">
     <div class="board-container">
       <table id="board">
-        <tr v-for="(row, rowIndex) in rows" v-bind:key="row">
-          <td v-for="(col, colIndex) in cols" :id="(rowIndex + 1)+'-'+(colIndex + 1)" v-bind:key="col">
+        <tr v-for="(row, rowIndex) in rows" v-bind:key="rowIndex">
+          <td v-for="(col, colIndex) in cols" :id="(rowIndex + 1)+'-'+(colIndex + 1)" v-bind:key="colIndex">
             0
           </td>
         </tr>
@@ -35,15 +35,12 @@ export default {
   mounted() {
     this.getBoard()
       .then(board => {
-        const boardGame = JSON.parse(localStorage.getItem('Board'));
-        const game = JSON.parse(localStorage.getItem('Game'));
-        const playerId = game['PlayerId1'];
-        this.cols = boardGame.cols
-        this.rows = boardGame.rows
+        this.cols = board.cols
+        this.rows = board.rows
       })
       .then(() => {
-        for(let i = 1; i <= this.cols; i++) {
-          for(let j = 1; j <= this.rows; j++) {
+        for(let i = 1; i <= this.rows; i++) {
+          for(let j = 1; j <= this.cols; j++) {
             dragula([
               document.getElementById('ship-container'),
               document.getElementById(i+'-'+j)], {
@@ -55,9 +52,11 @@ export default {
   },
   methods: {
     getBoard() {
+      const boardGame = JSON.parse(localStorage.getItem('Board'));
+        //const game = JSON.parse(localStorage.getItem('Game'));
       return Promise.resolve({
-        rows: 10,
-        cols: 15
+        rows: boardGame.rows,
+        cols: boardGame.cols
       })
     }
   }
