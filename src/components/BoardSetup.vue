@@ -9,11 +9,11 @@
     </div>
     <div class="board-ships">
       <div id="ship-container">
-        <div title="ship1" name="1" class="ship-img"><img src="../../imgs/alabama.png" class="ship-img"></div>
-        <div title="ship2" name="2" class="ship-img"><img src="../../imgs/yamato.png" class="ship-img"></div>
-        <div title="ship3" name="3" class="ship-img"><img src="../../imgs/conqueror.png" class="ship-img"></div>
-        <div title="ship4" name="4" class="ship-img"><img src="../../imgs/musashi.png" class="ship-img"></div>
-        <div title="ship5" name="5" class="ship-img"><img src="../../imgs/destroyer.png" class="ship-img"></div>
+        <div title="1" class="ship-img"><img src="../../imgs/alabama.png" class="ship-img"></div>
+        <div title="2" class="ship-img"><img src="../../imgs/yamato.png" class="ship-img"></div>
+        <div title="3" class="ship-img"><img src="../../imgs/conqueror.png" class="ship-img"></div>
+        <div title="4" class="ship-img"><img src="../../imgs/musashi.png" class="ship-img"></div>
+        <div title="5" class="ship-img"><img src="../../imgs/destroyer.png" class="ship-img"></div>
       </div>
       <div class="options-container">
         <input type="button" id="button" name="button" value="Rotate" v-on:click="rotate()">
@@ -24,6 +24,8 @@
 </template>
 <script>
 import * as dragula from 'dragula';
+import ShipLocation from '@/services/ShipLocation';
+
 export default {
   name: 'BoardSetup',
   data() {
@@ -52,7 +54,7 @@ export default {
             }
           });    
         }
-      }
+      }    
     });
   },
   methods: {
@@ -70,20 +72,27 @@ export default {
       let locationsArr = [];
       for(let i = 1; i <= this.rows; i++) {
         for(let j = 1; j <= this.cols; j++) {
-          let shipLocation = {};
           const box = document.getElementById(i + '-' + j).childNodes;
           if(box.length > 0)
           {
             locationsArr.push({
-              positionX: i, 
-              positionY: j, 
-              type: box[0].title,
+              positionY: i, 
+              positionX: j, 
+              type: parseInt(box[0].title),
               orientation: 'h'
             })
           }
         }
       }
-      locationsArr.forEach(console.log)
+      ShipLocation.location(locationsArr)
+      .then((response) => {
+        if(response!== null)
+        alert("The location of the ships were positioned.");
+      })
+      .catch((error) => {
+        alert(error);
+        console.log(error.message);
+      });
     }
   }
 }
