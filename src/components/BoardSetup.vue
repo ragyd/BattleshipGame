@@ -9,15 +9,15 @@
     </div>
     <div class="board-ships">
       <div id="ship-container">
-        <div title="ship1" class="ship-img"><img src="../../imgs/alabama.png" class="ship-img"></div>
-        <div title="ship2" class="ship-img"><img src="../../imgs/yamato.png" class="ship-img"></div>
-        <div title="ship3" class="ship-img"><img src="../../imgs/conqueror.png" class="ship-img"></div>
-        <div title="ship4" class="ship-img"><img src="../../imgs/musashi.png" class="ship-img"></div>
-        <div title="ship5" class="ship-img"><img src="../../imgs/destroyer.png" class="ship-img"></div>
+        <div title="ship1" name="1" class="ship-img"><img src="../../imgs/alabama.png" class="ship-img"></div>
+        <div title="ship2" name="2" class="ship-img"><img src="../../imgs/yamato.png" class="ship-img"></div>
+        <div title="ship3" name="3" class="ship-img"><img src="../../imgs/conqueror.png" class="ship-img"></div>
+        <div title="ship4" name="4" class="ship-img"><img src="../../imgs/musashi.png" class="ship-img"></div>
+        <div title="ship5" name="5" class="ship-img"><img src="../../imgs/destroyer.png" class="ship-img"></div>
       </div>
       <div class="options-container">
-        <button>Rotate</button>
-        <button>Save</button>
+        <input type="button" id="button" name="button" value="Rotate" v-on:click="rotate()">
+        <input type="button" id="button" name="button" value="Save" v-on:click="saveShipPositions()">
       </div>
     </div>
   </div>
@@ -62,6 +62,28 @@ export default {
         rows: boardGame.rows,
         cols: boardGame.cols
       });
+    },
+    rotate() {
+      alert("Rota?");
+    },
+    saveShipPositions() {
+      let locationsArr = [];
+      for(let i = 1; i <= this.rows; i++) {
+        for(let j = 1; j <= this.cols; j++) {
+          let shipLocation = {};
+          const box = document.getElementById(i + '-' + j).childNodes;
+          if(box.length > 0)
+          {
+            locationsArr.push({
+              positionX: i, 
+              positionY: j, 
+              type: box[0].title,
+              orientation: 'h'
+            })
+          }
+        }
+      }
+      locationsArr.forEach(console.log)
     }
   }
 }

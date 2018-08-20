@@ -58,7 +58,10 @@ export default {
           this.messageGame = "The game was created."
         })
         .catch((error) => {
-          this.messageGame = error;
+          if(error !== null)
+          {
+            this.messageGame = "The backend is not connected.";
+          }
         });
       } else {
           localStorage.clear()      
