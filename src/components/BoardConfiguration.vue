@@ -13,16 +13,16 @@
     <div class="div-group">
       <input type="button" id="button" class="my-button" name="button" value="Create Game" v-on:click="createGame(cols, rows)">
     </div>
-    <label class="message-game">{{messageGame}}</label>
+    <label class="message-game">{{messageGame}}</label> 
   </div>
 </template>
 
 <script>
 import { BoardBus } from '@/services/BoardBus';
 import CreateGame from '@/services/CreateGame';
+
 export default {
   name: 'board-config',
-  props: ['wrongRowsNumber', 'wrongColumnsNumber'],
   data() {
     return {
       rows: 10,
@@ -51,13 +51,20 @@ export default {
       if(this.createBoard()) {
         CreateGame.create({cols, rows})
         .then((response) => {
+          localStorage.clear()
+          localStorage.setItem('Game', JSON.stringify(response.data));
+          localStorage.setItem('Board', JSON.stringify({ cols, rows }));
           BoardBus.$emit('token-link', response.data);
           this.messageGame = "The game was created."
         })
         .catch((error) => {
-          this.messageGame = error;
+          if(error !== null)
+          {
+            this.messageGame = "The backend is not connected.";
+          }
         });
       } else {
+          localStorage.clear()      
         this.messageGame = "The game couldn't be created because the values of the board are invalid."
       }
     },
@@ -86,12 +93,6 @@ export default {
     padding: 10px;
     border: 1px solid black;
     border-radius: 3px;
-  }
-
-  .my-text-disabled {
-    border: 1px solid grey;
-    background: #ddd;
-    font-style: italic;
   }
 
   .my-label {
