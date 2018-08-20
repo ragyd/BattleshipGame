@@ -41,20 +41,16 @@ export default {
       this.rows = board.rows;
     })
     .then(() => {
+      const divArr = []
       const left = 'ship-container';
+      divArr.push(document.getElementById(left));
       for(let i = 1; i <= this.rows; i++) {
         for(let j = 1; j <= this.cols; j++) {
           let right = i + '-' + j;
-          dragula([document.getElementById(left), document.getElementById(right)], {
-            copy: function (el, source) {
-              return source === document.getElementById(left)
-            },
-            accepts: function (el, target) {
-              return target !== document.getElementById(left)
-            }
-          });    
+          divArr.push(document.getElementById(right));
         }
-      }    
+      }
+      dragula(divArr);
     });
   },
   methods: {
@@ -91,7 +87,6 @@ export default {
       })
       .catch((error) => {
         alert(error);
-        console.log(error.message);
       });
     }
   }
