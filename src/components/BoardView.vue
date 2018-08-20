@@ -4,7 +4,7 @@
     <div class="board-table">
       <table id="board">
         <tr v-for="row in rows" v-bind:key="row">
-          <td v-for="col in cols" v-bind:key="col" :id="(row + 1)+'-'+(col + 1)"></td>
+          <td v-for="col in cols" v-bind:key="col" :id="row+'-'+col"></td>
         </tr>      
       </table>
     </div>
@@ -32,7 +32,7 @@ export default {
 
 <style>
   .board-view {
-    width: 55%;
+    width: 50%;
     height: 500px;
     display: inline-block;
   }
